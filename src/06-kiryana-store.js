@@ -52,20 +52,70 @@
  */
 export function getItemNames(items) {
   // Your code here
+
+  if (Array.isArray(items) === false) {
+    return [];
+  }
+
+  let result = items.map((item) => item.name);
+
+  return result;
 }
 
 export function getAffordableItems(items, maxPrice) {
   // Your code here
+
+  if (Array.isArray(items) === false || isNaN(maxPrice)) {
+    return [];
+  }
+
+  let result = items.filter((val) => val.price <= maxPrice);
+
+  return result;
 }
 
 export function calculateTotal(items) {
   // Your code here
+
+  if (Array.isArray(items) === false || items.length === 0) {
+    return 0;
+  }
+
+  let result = items.reduce((acc, curr) => {
+    return acc + curr.price * curr.qty;
+  }, 0);
+
+  return result;
 }
 
 export function sortByPrice(items, ascending) {
   // Your code here
+
+  if (Array.isArray(items) === false) {
+    return [];
+  }
+
+  let newItems = [...items];
+
+  if (ascending) {
+    return newItems.sort((a, b) => a.price - b.price);
+  } else {
+    return newItems.sort((a, b) => b.price - a.price);
+  }
 }
 
 export function formatBill(items) {
   // Your code here
+
+  if (Array.isArray(items) === false || items.length === 0) {
+    return "";
+  }
+
+  let formatedBill = items.map(
+    (item) => `${item.name} x ${item.qty} = Rs.${item.price * item.qty}`,
+  );
+
+  let multiLineBill = formatedBill.join("\n");
+
+  return multiLineBill;
 }
